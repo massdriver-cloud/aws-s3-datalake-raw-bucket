@@ -32,9 +32,5 @@ resource "aws_s3_bucket_lifecycle_configuration" "main" {
       days          = var.bucket.lifecycle.transfer_s3_glacier
       storage_class = "GLACIER"
     }
-
-    expiration {
-      days = var.bucket.lifecycle.expiration
-    }
   }
 }

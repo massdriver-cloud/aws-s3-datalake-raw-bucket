@@ -31,7 +31,6 @@ params:
           required:
             - transfer_s3_ia
             - transfer_s3_glacier
-            - expiration
           properties:
             transfer_s3_ia:
               type: integer
@@ -43,12 +42,6 @@ params:
               type: integer
               title: Days until transfer to S3 Glacier
               default: 60
-              minimum: 1
-              maximum: 365
-            expiration:
-              type: integer
-              title: Days until expiration
-              default: 90
               minimum: 1
               maximum: 365
 
@@ -80,4 +73,3 @@ ui:
       ui:order:
         - "transfer_s3_ia"
         - "transfer_s3_glacier"
-        - "expiration"
