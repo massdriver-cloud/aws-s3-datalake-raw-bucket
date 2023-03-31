@@ -16,7 +16,7 @@ resource "massdriver_artifact" "bucket" {
             write = {
               policy_arn = aws_iam_policy.write.arn
             }
-            athenaread = {
+            athena_read = {
               policy_arn = aws_iam_policy.athena_read.arn
             }
           }
