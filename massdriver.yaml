@@ -1,8 +1,8 @@
 # This file will be used to generate all of the schema-*.json files in a bundle
 schema: draft-07
 name: "aws-s3-datalake-raw-bucket"
-description: "AWS S3 raw datalake bucket!"
-source_url: github.com/YOUR_NAME_HERE/aws-s3-datalake-raw-bucket
+description: "AWS S3 data lake bucket for raw data."
+source_url: "github.com/massdriver-cloud/aws-s3-datalake-raw-bucket"
 access: private
 type: "infrastructure"
 
