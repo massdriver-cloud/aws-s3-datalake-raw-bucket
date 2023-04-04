@@ -1,0 +1,3 @@
+{
+    "do_not_delete": ["aws_s3_bucket.main"]
+}

@@ -1,0 +1,69 @@
+schema: draft-07
+name: "aws-s3-datalake-raw-bucket"
+description: "AWS S3 data lake bucket for raw data."
+source_url: "github.com/massdriver-cloud/aws-s3-datalake-raw-bucket"
+access: private
+type: "infrastructure"
+
+params:
+  required:
+    - bucket
+  properties:
+    bucket:
+      type: object
+      title: Bucket
+      required:
+        - region
+        - lifecycle
+      properties:
+        region:
+          $ref: https://raw.githubusercontent.com/massdriver-cloud/artifact-definitions/main/definitions/types/aws-region.json
+          $md.immutable: true
+        lifecycle:
+          type: object
+          title: Lifecycle
+          required:
+            - transfer_s3_ia
+            - transfer_s3_glacier
+          properties:
+            transfer_s3_ia:
+              type: integer
+              title: Days until transfer to S3 Infrequent Access
+              default: 30
+              minimum: 1
+              maximum: 365
+            transfer_s3_glacier:
+              type: integer
+              title: Days until transfer to S3 Glacier
+              default: 60
+              minimum: 1
+              maximum: 365
+
+connections:
+  required:
+    - aws_authentication
+  properties:
+    aws_authentication:
+      $ref: massdriver/aws-iam-role
+
+artifacts:
+  required:
+    - bucket
+  properties:
+    bucket:
+      $ref: massdriver/aws-s3-bucket
+
+ui:
+  ui:order:
+    - "bucket"
+  bucket:
+    ui:order:
+      - "region"
+      - "lifecycle"
+    region:
+      ui:field: supportedCloudLocationsDropdown
+      cloudService: aws
+    lifecycle:
+      ui:order:
+        - "transfer_s3_ia"
+        - "transfer_s3_glacier"
