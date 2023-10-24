@@ -3,17 +3,21 @@ resource "aws_s3_bucket" "main" {
   force_destroy = false
 }
 
-resource "aws_s3_bucket_acl" "private" {
+resource "aws_s3_bucket_ownership_controls" "main" {
   bucket = aws_s3_bucket.main.id
-  acl    = "private"
+  rule {
+    # this setting disables ACLs
+    object_ownership = "BucketOwnerEnforced"
+  }
 }
 
 resource "aws_s3_bucket_public_access_block" "main" {
   bucket = aws_s3_bucket.main.id
 
-  block_public_acls   = true
-  block_public_policy = true
-  ignore_public_acls  = true
+  block_public_acls       = true
+  block_public_policy     = true
+  ignore_public_acls      = true
+  restrict_public_buckets = true
 }
 
 resource "aws_s3_bucket_lifecycle_configuration" "main" {
