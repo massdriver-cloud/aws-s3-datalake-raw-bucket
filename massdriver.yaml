@@ -15,6 +15,7 @@ params:
       required:
         - region
         - lifecycle
+        - force_destroy
       properties:
         region:
           $ref: https://raw.githubusercontent.com/massdriver-cloud/artifact-definitions/main/definitions/types/aws-region.json
@@ -38,6 +39,11 @@ params:
               default: 60
               minimum: 1
               maximum: 365
+        force_destroy:
+          title: Force Destroy Objects
+          description: "**WARNING**: Enabling this will delete all objects in the bucket during decommission. Disabling will block bucket deletion unless bucket is empty."
+          type: boolean
+          default: false
 
 connections:
   required:
@@ -60,6 +66,7 @@ ui:
     ui:order:
       - "region"
       - "lifecycle"
+      - "force_destroy"
     region:
       ui:field: supportedCloudLocationsDropdown
       cloudService: aws

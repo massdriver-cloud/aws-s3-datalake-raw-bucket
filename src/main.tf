@@ -1,6 +1,6 @@
 resource "aws_s3_bucket" "main" {
   bucket        = var.md_metadata.name_prefix
-  force_destroy = false
+  force_destroy = lookup(var.bucket, "force_destroy", false)
 }
 
 resource "aws_s3_bucket_ownership_controls" "main" {
