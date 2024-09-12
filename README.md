@@ -17,7 +17,7 @@ AWS S3 data lake bucket for raw data.
 
 ## Design
 
-For detailed information, check out our [Operator Guide](operator.mdx) for this bundle.
+For detailed information, check out our [Operator Guide](operator.md) for this bundle.
 
 ## Usage
 
@@ -40,6 +40,7 @@ Form input parameters for configuring a bundle for deployment.
 ## Properties
 
 - **`bucket`** *(object)*
+  - **`force_destroy`** *(boolean)*: **WARNING**: Enabling this will delete all objects in the bucket during decommission. Disabling will block bucket deletion unless bucket is empty. Default: `False`.
   - **`lifecycle`** *(object)*
     - **`transfer_s3_glacier`** *(integer)*: Minimum: `1`. Maximum: `365`. Default: `60`.
     - **`transfer_s3_ia`** *(integer)*: Minimum: `1`. Maximum: `365`. Default: `30`.
