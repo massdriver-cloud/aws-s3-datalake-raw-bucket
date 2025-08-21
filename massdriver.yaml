@@ -1,31 +1,29 @@
 schema: draft-07
-name: "aws-s3-datalake-raw-bucket"
-description: "AWS S3 data lake bucket for raw data."
-source_url: "github.com/massdriver-cloud/aws-s3-datalake-raw-bucket"
-access: private
-type: "infrastructure"
-
+name: aws-s3-datalake-raw-bucket
+version: 1.0.0
+description: AWS S3 data lake bucket for raw data.
+source_url: https://github.com/massdriver-cloud/aws-s3-datalake-raw-bucket
 params:
   required:
-    - bucket
+  - bucket
   properties:
     bucket:
       type: object
       title: Bucket
       required:
-        - region
-        - lifecycle
-        - force_destroy
+      - region
+      - lifecycle
+      - force_destroy
       properties:
         region:
-          $ref: https://raw.githubusercontent.com/massdriver-cloud/artifact-definitions/main/definitions/types/aws-region.json
-          $md.immutable: true
+          "$ref": https://raw.githubusercontent.com/massdriver-cloud/artifact-definitions/main/definitions/types/aws-region.json
+          "$md.immutable": true
         lifecycle:
           type: object
           title: Lifecycle
           required:
-            - transfer_s3_ia
-            - transfer_s3_glacier
+          - transfer_s3_ia
+          - transfer_s3_glacier
           properties:
             transfer_s3_ia:
               type: integer
@@ -44,33 +42,36 @@ params:
           description: "**WARNING**: Enabling this will delete all objects in the bucket during decommission. Disabling will block bucket deletion unless bucket is empty."
           type: boolean
           default: false
-
 connections:
   required:
-    - aws_authentication
+  - aws_authentication
   properties:
     aws_authentication:
-      $ref: massdriver/aws-iam-role
-
+      "$ref": massdriver/aws-iam-role
 artifacts:
   required:
-    - bucket
+  - bucket
   properties:
     bucket:
-      $ref: massdriver/aws-s3-bucket
-
+      "$ref": massdriver/aws-s3-bucket
 ui:
   ui:order:
-    - "bucket"
+  - bucket
   bucket:
     ui:order:
-      - "region"
-      - "lifecycle"
-      - "force_destroy"
+    - region
+    - lifecycle
+    - force_destroy
     region:
       ui:field: supportedCloudLocationsDropdown
       cloudService: aws
     lifecycle:
       ui:order:
-        - "transfer_s3_ia"
-        - "transfer_s3_glacier"
+      - transfer_s3_ia
+      - transfer_s3_glacier
+steps:
+- path: src
+  provisioner: opentofu
+  config:
+    checkov:
+      enable: true
